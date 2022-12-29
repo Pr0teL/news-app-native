@@ -15,6 +15,7 @@ const PostView = styled.View`
    width: 100%;
    border-radius: 16px;
    margin: 0 auto;
+   margin-bottom: 3%;
    padding: 5px;
    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.05);
 `;
