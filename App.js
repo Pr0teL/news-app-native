@@ -5,14 +5,11 @@ import { Text, View, TextInput, Alert, FlatList, ActivityIndicator, RefreshContr
 import React from 'react';
 import Home from './screens/Home';
 import FullPost from './screens/FullPost';
+import { Navigation } from './screens/Navigation';
 
 export default function App() {
 
    return (
-      <View>
-          <StatusBar style="auto" />
-          <Home/>
-          {/* <FullPost/> */}
-      </View>
+      <Navigation/>
    )
 }

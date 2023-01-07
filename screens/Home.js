@@ -36,7 +36,7 @@ const Search = styled.TextInput`
    border-radius: 10px;
 `;
 
-export default function Home() {
+export default function Home({navigation}) {
    const [items, setItems] = React.useState()
    const [loading, setLoading] = React.useState(true)
    const fetchPosts = () => {
@@ -72,7 +72,7 @@ export default function Home() {
                onRefresh={()=> fetchPosts()}
              />}
             data={items}
-            renderItem={({ item }) => <TouchableOpacity>
+            renderItem={({ item }) => <TouchableOpacity onPress={()=> navigation.navigate('Post', {id: item.id})}>
                <Post
                createdAt={item.createdAt}
                author={item.author}

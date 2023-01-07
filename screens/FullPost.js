@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Text, View } from 'react-native'
+import axios from 'axios';
+import { ScrollView, Text, View, ActivityIndicator } from 'react-native'
+
 
 const FullPostImage = styled.Image`
    background-color: gray;
@@ -14,20 +16,44 @@ const FullPostDescr = styled.View`
    border-radius: 20px;
    background-color: #fff;
    padding: 15px;
-   height: 80%;
-   margin-top: 80%;
+   height: 90%;
+   top: 32%;
    z-index: 2;
    background-position: center;
 `;
 
-export default function FullPost() {
+
+
+export default function FullPost({route}) {
+    const [loading, setLoading] = React.useState(true)
+    const [data, setData] = React.useState([])
+    console.log(route);
+    React.useEffect(() => {
+        setLoading(true)
+        axios.get('https://63accbc034c46cd7ae8a1f69.mockapi.io/posts/' + route.params.id)
+            .then(({ data }) => {
+                setData(data)
+            }).catch(err => {
+                console.log(err)
+                Alert.alert('Ошибка', 'Не удалось получить данные с сервера')
+            }).finally(() => {
+                setLoading(false)
+            })
+    }, [])
     return (
         <View>
-            <FullPostImage source={{ uri: "https://habrastorage.org/getpro/habr/upload_files/1f2/3c1/db4/1f23c1db49915e05648bffb7eeebdadd.webp" }} style={{ height: "33%" }}/>
-            <FullPostDescr>
-                <Text style={{fontSize: "22px", fontWeight: "700" , marginBottom: "6%"}}>Президент Казахстана подписал закон о введении дифференцированных ставок налога на цифровой майнинг</Text>
-                <Text style={{fontSize: "17px"}}>Президент Казахстана Касым-Жомарт Токаев подписал законопроект с поправками в налоговое законодательство, среди которых указано введение дифференцированных ставок налога на цифровой майнинг, передаёт ТАСС со ссылкой на пресс-службу президента. Это предусматривает повышение налога на майнинг при использовании дешёвой электроэнергии, что необходимо для распределения нагрузки и снижения потребления электроэнергии. При этом ставка снижается в случае, если энергия добыта из возобновляемых источников.</Text>
-            </FullPostDescr>
+           {loading ? 
+         <View style={{height: "80%", justifyContent: "center"}}>
+         <ActivityIndicator size="large" />
+        </View> : <>
+                <FullPostImage source={{ uri: data.imageUrl }} style={{ height: "35%" }} />
+                <FullPostDescr>
+                    <ScrollView style={{ height: "100%" }}>
+                        <Text style={{ fontSize: "22px", fontWeight: "700", marginBottom: "6%" }}>{data.title}</Text>
+                        <Text style={{ fontSize: "17px" }}>{data.text}</Text>
+                    </ScrollView>
+                </FullPostDescr>
+            </>}
         </View>
     )
 }
