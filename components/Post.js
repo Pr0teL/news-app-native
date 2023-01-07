@@ -32,8 +32,11 @@ const PostImage = styled.Image`
    margin-bottom: 10px;
 `;
 
+const cutTitle = (str) => {
+    return str.length > 75 ? str.substring(0, 75) + '...' : str
+}
 
-const Post = ({title, imageUrl, createdAt, author, top = true}) => {
+const Post = ({ title, imageUrl, createdAt, author, top = true }) => {
     return (<PostView>
         <PostImage source={{ uri: imageUrl }}>
         </PostImage>
@@ -41,7 +44,7 @@ const Post = ({title, imageUrl, createdAt, author, top = true}) => {
             <Text style={{ color: "rgba(0,0,0,0.3)" }}>{top ? "🔥 Top news" : "Daily"}</Text>
             <Text style={{ color: "rgba(0,0,0,0.3)" }}>{createdAt}</Text>
         </View>
-        <Title style={{ fontSize: "18px", marginLeft: "3%" }}>{title}</Title>
+        <Title style={{ fontSize: "18px", marginLeft: "3%" }}>{cutTitle(title)}</Title>
         <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: "2%", paddingRight: "2%", alignItems: "center" }}>
             <Text style={{ fontSize: "13px", fontWeight: "400" }}>{author}</Text>
             <Text style={{ color: "rgba(0,0,0,0.3)", fontSize: "33px", fontWeight: "600", marginBottom: "4%" }}>...</Text>

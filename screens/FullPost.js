@@ -27,7 +27,6 @@ const FullPostDescr = styled.View`
 export default function FullPost({route}) {
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
-    console.log(route);
     React.useEffect(() => {
         setLoading(true)
         axios.get('https://63accbc034c46cd7ae8a1f69.mockapi.io/posts/' + route.params.id)
