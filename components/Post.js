@@ -2,7 +2,6 @@ import { Text, View, TextInput } from 'react-native';
 import styled from 'styled-components/native';
 
 const Title = styled.Text`
-   font-size: 30px;
    font-weight: 500;
    margin-bottom: 2%;
 `;
@@ -11,7 +10,7 @@ const Title = styled.Text`
 const PostView = styled.View`
    
    background-color: #fff;
-   height: 350px;
+   height: 360px;
    width: 100%;
    border-radius: 16px;
    margin: 0 auto;
@@ -42,11 +41,13 @@ const Post = ({ title, imageUrl, createdAt, author, top = true }) => {
         </PostImage>
         <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: "2%", paddingRight: "2%", marginBottom: "2%" }}>
             <Text style={{ color: "rgba(0,0,0,0.3)" }}>{top ? "🔥 Top news" : "Daily"}</Text>
-            <Text style={{ color: "rgba(0,0,0,0.3)" }}>{createdAt}</Text>
+            <Text style={{ color: "rgba(0,0,0,0.3)" }}>{new Date(createdAt).toLocaleDateString()}</Text>
         </View>
-        <Title style={{ fontSize: "18px", marginLeft: "3%" }}>{cutTitle(title)}</Title>
+        <Title style={{ fontSize: "17px", marginLeft: "3%" }}>{cutTitle(title)}</Title>
         <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: "2%", paddingRight: "2%", alignItems: "center" }}>
-            <Text style={{ fontSize: "13px", fontWeight: "400" }}>{author}</Text>
+            <View style={{borderRadius: "20px",backgroundColor: "#2192FF", padding: "2%", borderRadius: "20px"}}>
+            <Text style={{ fontSize: "13px", fontWeight: "400", color: "#fff" }}>{author}</Text>
+            </View>
             <Text style={{ color: "rgba(0,0,0,0.3)", fontSize: "33px", fontWeight: "600", marginBottom: "4%" }}>...</Text>
         </View>
     </PostView>)

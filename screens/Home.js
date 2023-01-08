@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, TextInput, Alert, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity} from 'react-native';
+import { Text, View, TextInput, Alert, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import Post from '../components/Post';
 import axios from 'axios';
@@ -36,7 +36,7 @@ const Search = styled.TextInput`
    border-radius: 10px;
 `;
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
    const [items, setItems] = React.useState()
    const [loading, setLoading] = React.useState(true)
    const fetchPosts = () => {
@@ -58,28 +58,29 @@ export default function Home({navigation}) {
 
    return (
       <MainPage>
-         <Header style={{ justifyContent: "center"}}>
+         <Header style={{ justifyContent: "center" }}>
             <Title>IT NEWS</Title>
             {/* <Search placeholder={"Поиск..."} /> */}
          </Header>
-         {loading ? 
-         <View style={{height: "80%", justifyContent: "center"}}>
-         <ActivityIndicator size="large" />
-        </View> :
-         <FlatList
-            refreshControl={<RefreshControl
-               refreshing={loading}
-               onRefresh={()=> fetchPosts()}
-             />}
-            data={items}
-            renderItem={({ item }) => <TouchableOpacity onPress={()=> navigation.navigate('Post', {id: item.id})}>
-               <Post
-               createdAt={item.createdAt}
-               author={item.author}
-               title={item.title}
-               imageUrl={item.imageUrl} />
-            </TouchableOpacity>}
-         />}
+         {loading ?
+            <View style={{ height: "80%", justifyContent: "center" }}>
+               <ActivityIndicator size="large" />
+            </View> :
+            <FlatList
+               showsVerticalScrollIndicator={false}
+               refreshControl={<RefreshControl
+                  refreshing={loading}
+                  onRefresh={() => fetchPosts()}
+               />}
+               data={items}
+               renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('Post', { id: item.id })}>
+                  <Post
+                     createdAt={item.createdAt}
+                     author={item.author}
+                     title={item.title}
+                     imageUrl={item.imageUrl} />
+               </TouchableOpacity>}
+            />}
          <StatusBar style="auto" />
       </MainPage>
    );
